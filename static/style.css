@@ -1,0 +1,12 @@
+body 
+{
+    font-family: sans-serif;
+    background: #FFFFC2;
+}
+
+.eggs
+{
+    background-repeat: repeat-x;
+    background-image: url("egg.png");
+    height: 128px;
+}
