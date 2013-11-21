@@ -6,7 +6,7 @@
   <!-- Omelette search box -->
   <form action="{{ url_for('yelp_search') }}" method=post class=yelp_search>
     <h3>Find available omelettes near you!</h3>
-    <input type=text size=60 name=location placeholder=location>
+    <input type=text size=60 name=location placeholder="e.g., Irvine, CA">
     <input type=submit value="Eggs-pect Deliciousness!">
   </form>
   
@@ -14,7 +14,7 @@
   {% if location == "" %}
     <h4>Please enter a location to find omelettes!</h4>
   {% elif res == [] %}
-    <h4>No results found at {{location}}.</h4>
+    <h4>No results found at <b>{{location}}</b>.</h4>
   {% else %}
     <ol>
       {% for r in res %}
