@@ -10,13 +10,13 @@
 
 ## Yelp API
 
-1. Register for API 2.0 keys at http://www.yelp.com/developers/
+Register for API 2.0 keys at http://www.yelp.com/developers/
 
-2. Copy env.sample to .env in this directory and fill in your API keys. The .env file is ignored by version control.
+Copy env.sample to .env in this directory and fill in your API keys. The .env file is ignored by version control.
 
     $ cp env.sample .env
 
-3. Install Heroku Config and add your keys to Heroku environment
+Install Heroku Config and add your keys to Heroku environment
 
     $ heroku login
     Email:
@@ -35,17 +35,17 @@ Reference: https://devcenter.heroku.com/articles/config-vars#local-setup
 
 ## Deployment
 
-1. Let's try a local build first.
+Let's try a local build first.
 
     $ foreman start
 
 This command should set up a server at localhost:5000, where you can play with the app and test out queries (its functionality is quite basic).
 
-2. With your local version working, push to heroku!
+With your local version working, push to heroku!
 
     $ git push heroku master
 
-3. Don't forget to push your changes to GitHub. Heroku recommends git services external to itself for canonical version control. 
+Don't forget to push your changes to GitHub. Heroku recommends git services external to itself for canonical version control. 
 
     $ git push origin master
 
