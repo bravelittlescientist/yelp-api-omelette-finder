@@ -1,4 +1,5 @@
 Flask==0.10.1
 Jinja2==2.7.1
+oauth2==1.5.170
 Werkzeug==0.9.4
 gunicorn==18.0
