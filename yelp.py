@@ -10,12 +10,12 @@ app = Flask(__name__)
 
 # Set this to True for more detailed internal server messages, but remember
 # to return to False for production!
-app.debug = False
+app.debug = True
 
 # Retrieve API secrets from .env file. Please see README for configuration.
-keys = {"YELP_KEY" : os.environ['YELP_KEY'],
-        "YELP_SECRET" : os.environ['YELP_SECRET'],
-        "YELP_TOKEN" : os.environ['YELP_TOKEN'],
+keys = {"YELP_KEY"          : os.environ['YELP_KEY'],
+        "YELP_SECRET"       : os.environ['YELP_SECRET'],
+        "YELP_TOKEN"        : os.environ['YELP_TOKEN'],
         "YELP_TOKEN_SECRET" : os.environ['YELP_TOKEN_SECRET']}
 
 @app.route('/')
@@ -29,9 +29,37 @@ def yelp_search():
 
     # Get Yelp Response
     response = basic_yelp_request(location)
+    code, content = process_response(response)
 
     # Render template with request result
-    return render_template("omelettes.html", res=[response], location=location)
+    return render_template("omelettes.html", res=content, location=location, code=code)
+
+def yelp_business_basics(business_entry):
+    """ http://www.yelp.com/developers/documentation/v2/search_api
+        See Businesses structure """
+    return {"name"          : business_entry.get("name"),
+            "image_url"     : business_entry.get("image_url", ""),
+            "url"           : business_entry.get("url", "None listed"),
+            "phone"         : business_entry.get("display_phone", "None Listed"),
+            "rating"        : business_entry.get("rating", "n/a"),
+            "review_count"  : business_entry["review_count"],
+            "address"       : " ".join(business_entry["location"]["display_address"])}
+
+def process_response(response):
+    # Check for errors
+    if "error" in response:
+        return 1, response["error"]["id"] + ": " + response["error"]["text"]
+
+    # Otherwise, just return a list of names of businesses
+    # This version of the demo leaves the map alone, though a future version
+    # will add the Google Mapping API.
+    elif "businesses" in response:
+        return 0, [yelp_business_basics(b) for b in response["businesses"]]
+
+    # If something really unexpected happens, well, that will be really sad.
+    else:
+        return 1, "Something went wrong, please try again."
+
 
 def basic_yelp_request(location,keyword="omelette"):
     """ Adapted from Yelp API Search Example
