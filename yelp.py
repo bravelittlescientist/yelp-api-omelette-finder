@@ -20,7 +20,7 @@ keys = {"YELP_KEY"          : os.environ['YELP_KEY'],
 
 @app.route('/')
 def run():
-    return render_template("omelettes.html", res=[], location="")
+    return render_template("omelettes.html", res=[], location="", code=-1)
 
 @app.route('/omelettes', methods=["POST"])
 def yelp_search():

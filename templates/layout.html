@@ -2,7 +2,27 @@
 <html>
 <head>
     <title>Omelette Party</title>
+
+    <!-- Only import these if we are returning data, otherwise, no -->
+    {% if code == 0 %}
+      <link rel=stylesheet type=text/css href="{{ url_for('static', filename='jquery-ui-custom/css/smoothness/jquery-ui-1.10.3.custom.min.css') }}">
+      <link rel=stylesheet type=text/css href="{{ url_for('static', filename='datatables/media/css/jquery.dataTables_themeroller.css') }}">
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+      <script src="{{ url_for('static', filename='jquery-ui-custom/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
+      <script src="{{ url_for('static', filename='datatables/media/js/jquery.dataTables.min.js') }}"></script>
+
+      <script>
+        $(function() {
+            $("#output").dataTable({
+                "bJQueryUI": true
+            });
+        });
+      </script>
+    {% endif %}  
+    
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+
 </head>
 {% block body %}{% endblock %}
 </html>

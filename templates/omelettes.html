@@ -13,13 +13,41 @@
   <!-- Display Results -->
   {% if location == "" %}
     <h4>Please enter a location to find omelettes!</h4>
+    
   {% elif res == [] %}
     <h4>No results found at <b>{{location}}</b>.</h4>
+    
+  {% elif code == 1 %}
+    <h4>{{res}}</h4>
+    
   {% else %}
-    <ol>
-      {% for r in res %}
-        <li><h4>{{r}}</h4></li>
-      {% endfor %}
-    </ol>
+    <div class="dataT-holder">
+      <table id="output">
+        <thead>
+          <tr>
+            <th>Restaurant</th>
+            <th>Rating</th>
+            <th># Reviews</th>
+            <th>Go to Yelp</th>
+            <th>Phone</th>
+            <th>Address</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% for r in res %}
+          <tr>
+            <td>{{r.name}}</td>
+            <td>{{r.rating}}</td>
+            <td>{{r.review_count}}</td>
+            <td>{{r.url}}</td>
+            <td>{{r.phone}}</td>
+            <td>{{r.address}}</td>
+          </tr>
+        {% endfor %}
+  
+        </tbody>           
+      </table>
+    </div>
   {% endif %}
 {% endblock %}
