@@ -19,7 +19,8 @@
     
   {% elif code == 1 %}
     <h4>{{res}}</h4>
-    
+
+  <!-- Gross below but I was sleepy and it worked. Fix to come soon -->
   {% else %}
     <div class="dataT-holder">
       <table id="output">
@@ -29,6 +30,7 @@
             <th>Rating</th>
             <th># Reviews</th>
             <th>Go to Yelp</th>
+            <th>Appetite Boost</th>
             <th>Phone</th>
             <th>Address</th>
           </tr>
@@ -41,6 +43,7 @@
             <td>{{r.rating}}</td>
             <td>{{r.review_count}}</td>
             <td>{{r.url}}</td>
+            <td><img src="{{r.image_url}}"></td>
             <td>{{r.phone}}</td>
             <td>{{r.address}}</td>
           </tr>
