@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block body %}
+  <!-- Omelette search box -->
+  <form action="{{ url_for('yelp_search') }}" method=post class=yelp_search>
+    <h3>Find available omelettes near you!</h3>
+    <input type=text size=60 name=location placeholder=location>
+    <input type=submit value=Find>
+  </form>
+  
+  <!-- Display Results -->
+  {% if location == "" %}
+    <h4>Please enter a location to find omelettes!</h4>
+  {% elif res == [] %}
+    <h4>No results found at {{location}}.</h4>
+  {% else %}
+    <ol>
+      {% for r in res %}
+        <li><h4>{{r}}</h4></li>
+      {% endfor %}
+    </ol>
+  {% endif %}
+{% endblock %}
