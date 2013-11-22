@@ -1,56 +1,62 @@
 {% extends "layout.html" %}
 {% block body %}
+
   <!-- Decorative div -->
   <div class="eggs"></div>
 
-  <!-- Omelette search box -->
-  <form action="{{ url_for('yelp_search') }}" method=post class=yelp_search>
-    <h3>Find available omelettes near you!</h3>
-    <input type=text size=60 name=location placeholder="e.g., Irvine, CA">
-    <input type=submit value="Eggs-pect Deliciousness!">
-  </form>
+  <!-- Grid -->
+  <div class="container">
+    <div class="grid">
   
-  <!-- Display Results -->
-  {% if location == "" %}
-    <h4>Please enter a location to find omelettes!</h4>
-    
-  {% elif res == [] %}
-    <h4>No results found at <b>{{location}}</b>.</h4>
-    
-  {% elif code == 1 %}
-    <h4>{{res}}</h4>
+      <div class="unit span-grid">
+        <!-- Omelette search box -->
+        <form action="{{ url_for('yelp_search') }}" method=post class=yelp_search>
+          <h3>Find available omelettes near you!</h3>
+          <input type=text size=60 name=location placeholder="e.g., Irvine, CA">
+          <input type=submit value="Eggs-pect Deliciousness!">
+        </form>
+      </div>
 
-  <!-- Gross below but I was sleepy and it worked. Fix to come soon -->
-  {% else %}
-    <div class="dataT-holder">
-      <table id="output">
-        <thead>
-          <tr>
-            <th>Restaurant</th>
-            <th>Rating</th>
-            <th># Reviews</th>
-            <th>Go to Yelp</th>
-            <th>Appetite Boost</th>
-            <th>Phone</th>
-            <th>Address</th>
-          </tr>
-        </thead>
+      <!-- Display Results -->
+      {% if location == "" %}
+        <div class="unit span-grid">        
+          <h4>Please enter a location to find omelettes!</h4>
+        </div>
 
-        <tbody>
+      {% elif res == [] %}
+        <div class="unit span-grid">
+          <h4>No results found at <b>{{location}}</b>.</h4>
+        </div>
+  
+      {% elif code == 1 %}
+        <div class="unit span-grid">    
+          <h4>{{res}}</h4>
+        </div>
+
+      {% else %}
+        <!-- Search Results -->
         {% for r in res %}
-          <tr>
-            <td>{{r.name}}</td>
-            <td>{{r.rating}}</td>
-            <td>{{r.review_count}}</td>
-            <td>{{r.url}}</td>
-            <td><img src="{{r.image_url}}"></td>
-            <td>{{r.phone}}</td>
-            <td>{{r.address}}</td>
-          </tr>
+
+          <!-- Restaurant Name -->
+          <hr>
+          <div class="unit span-grid"><h4>{{r.name}}</h4></div>
+          
+          <!-- Image and Link to Page -->
+          <div class="unit one-of-four">
+            <a href="{{r.url}}"><img src="{{r.image_url}}"></a>
+          </div>
+          
+          <div class="unit one-of-four">
+            Rated {{r.rating}} / 5<br>
+            {{r.review_count}} reviews
+          </div>
+          
+          <div class="unit one-of-two">
+            {{r.phone}}<br/>
+            {{r.address}}
+          </div>          
         {% endfor %}
-  
-        </tbody>           
-      </table>
+      {% endif %}
     </div>
-  {% endif %}
+  </div>
 {% endblock %}
